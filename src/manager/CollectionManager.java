@@ -39,6 +39,9 @@ public class CollectionManager {
         try (BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(fileName))) {
             JSONObject jo = new JSONObject();
             Map map = new LinkedHashMap<>();
+            if (collection.isEmpty()) {
+                return new MessagePacket(LoggerUtil.negativeAsString("Коллекция пустая"));
+            }
             for (Organization organization : collection) {
                 map.put("id", organization.getId());
                 map.put("name", organization.getName());
@@ -53,6 +56,7 @@ public class CollectionManager {
                 map.clear();
                 isSuccessfully = true;
             }
+
             if (isSuccessfully) {
                 return new MessagePacket(LoggerUtil.positiveAsString("Коллекция была успешно сохранена в файл"));
             } else {
@@ -71,7 +75,7 @@ public class CollectionManager {
         try (BufferedInputStream is = new BufferedInputStream(new FileInputStream(fileName))) {
             Object obj = new JSONParser().parse(fileName);
             JSONObject jo = (JSONObject) obj;
-            Map id = (Map) jo.get("ID");
+            Map id = (Map) jo.get("id");
 
             Iterator<Map.Entry> itr = id.entrySet().iterator();
             List<String> keyList = new ArrayList<>();
@@ -91,11 +95,11 @@ public class CollectionManager {
                     new Organization.Address(valueList.get(6)));
             collection.add(organization);
             initDate = System.currentTimeMillis();
-            LoggerUtil.positive("Коллекция была успешно загружена из файла" + fileName);
+            LoggerUtil.positive("Коллекция была успешно загружена из файла " + fileName);
         } catch (FileNotFoundException ex) {
-            LoggerUtil.negative("Не удалось сохранить коллекцию из файла" + ex.getMessage());
+            LoggerUtil.negative("Не удалось сохранить коллекцию из файла " + ex.getMessage());
         } catch (IOException | ParseException ex) {
-            LoggerUtil.negative("Не удалось сохранить коллекцию из файла"  + ex.getMessage());
+            LoggerUtil.negative("Не удалось сохранить коллекцию из файла " + ex.getMessage());
 //            ex.printStackTrace();
         }
     }
