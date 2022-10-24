@@ -67,6 +67,7 @@ public class CollectionManager {
      * Reads collection from a file in json format
      */
     public void readCollectionFromFile() {
+
         try (BufferedInputStream is = new BufferedInputStream(new FileInputStream(fileName))) {
             Object obj = new JSONParser().parse(fileName);
             JSONObject jo = (JSONObject) obj;
@@ -94,7 +95,7 @@ public class CollectionManager {
         } catch (FileNotFoundException ex) {
             LoggerUtil.negative("Не удалось сохранить коллекцию из файла" + ex.getMessage());
         } catch (IOException | ParseException ex) {
-            LoggerUtil.negative("Не удалось сохранить коллекцию из файла" );
+            LoggerUtil.negative("Не удалось сохранить коллекцию из файла"  + ex.getMessage());
 //            ex.printStackTrace();
         }
     }

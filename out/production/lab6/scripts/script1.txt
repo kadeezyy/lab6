@@ -1,0 +1,22 @@
+show
+help
+info
+execute_script src/scripts/script1.txt
+add
+kanat
+3
+4
+50
+toroev
+50
+COMMERCIAL
+ez
+add_if_max
+kanat
+5
+5
+60
+toroev
+70
+PRIVATE_LIMITED_COMPANY
+ez
